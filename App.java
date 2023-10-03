@@ -76,7 +76,7 @@ public class App extends JFrame {
         String[] cmd;
     
         // Remplacez "C:\\chemin\\vers\\msedge.exe" par le chemin complet vers l'exécutable de Microsoft Edge
-        cmd = new String[]{"firefox", "--start-fullscreen", url};
+        cmd = new String[]{"C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe", "--start-fullscreen", url};
     
         try {
             Process process = new ProcessBuilder(cmd).start();
