@@ -89,8 +89,8 @@ public class App extends JFrame {
 
     private void openLinkInBrowser(String url) {
         String[] cmd;
-        //cmd = new String[]{"C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe", "--start-fullscreen", url};
-        cmd = new String[]{"firefox", url,  "--start-fullscreen"};
+        cmd = new String[]{"C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe", "--start-fullscreen", url};
+        //cmd = new String[]{"firefox", url,  "--start-fullscreen"};
         try {   
             Process process = new ProcessBuilder(cmd).start();
         } catch (IOException e) {
