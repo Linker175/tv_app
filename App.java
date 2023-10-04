@@ -10,21 +10,27 @@ import javax.swing.border.LineBorder;
 public class App extends JFrame {
 
     public App() {
-        setUndecorated(true);
+        setUndecorated(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setExtendedState(JFrame.MAXIMIZED_BOTH);
 
-        JPanel mainPanel = new JPanel();
-        mainPanel.setLayout(new BorderLayout());
+        // Créez un panneau personnalisé pour le fond d'écran
+        JPanel backgroundPanel = new JPanel();
+
+        // Utilisez un gestionnaire de disposition pour organiser les composants
+        
+        backgroundPanel.setLayout(new BorderLayout());
+
+        /*
         JButton closeButton = new JButton("X");
         closeButton.setBackground(Color.RED);
         closeButton.setForeground(Color.WHITE);
         closeButton.setFont(new Font("Arial", Font.BOLD, 24));
         closeButton.setBorderPainted(false);
         closeButton.setFocusPainted(false);
-        
         closeButton.setBorder(new LineBorder(Color.RED, 2, true));
         closeButton.setPreferredSize(new Dimension(60, 60)); // Agrandir la taille du bouton
+        
 
         closeButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -34,12 +40,24 @@ public class App extends JFrame {
 
         JPanel buttonPanel = new JPanel();
         buttonPanel.add(closeButton);
+        
 
-        mainPanel.add(buttonPanel, BorderLayout.NORTH);
+        backgroundPanel.add(buttonPanel, BorderLayout.NORTH);
+
+        */
 
         String[] imagePaths = {"image/movies7.png", "image/spotify.png", "image/youtube.png", "image/orange_tv.png"};
 
-        JPanel imagePanel = new JPanel(new GridLayout(2, 2));
+        JPanel imagePanel = new JPanel(new GridLayout(2, 2)){
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+
+                // Dessinez l'image de fond
+                Image backgroundImage = new ImageIcon("image/fond.jpg").getImage();
+                g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
+            }
+        };
 
         for (int i = 0; i < 4; i++) {
             JLabel imageLabel = new JLabel(new ImageIcon(imagePaths[i]));
@@ -63,28 +81,22 @@ public class App extends JFrame {
 
             imagePanel.add(imageLabel);
         }
-        buttonPanel.setBackground(Color.GRAY);
-        imagePanel.setBackground(Color.GRAY);
-        mainPanel.add(imagePanel, BorderLayout.CENTER);
-
-        add(mainPanel);
-
+        
+        backgroundPanel.add(imagePanel, BorderLayout.CENTER);
+        add(backgroundPanel);
         setVisible(true);
     }
 
     private void openLinkInBrowser(String url) {
         String[] cmd;
-    
-        // Remplacez "C:\\chemin\\vers\\msedge.exe" par le chemin complet vers l'exécutable de Microsoft Edge
-        cmd = new String[]{"C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe", "--start-fullscreen", url};
-    
-        try {
+        //cmd = new String[]{"C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe", "--start-fullscreen", url};
+        cmd = new String[]{"firefox", url,  "--start-fullscreen"};
+        try {   
             Process process = new ProcessBuilder(cmd).start();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-    
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
