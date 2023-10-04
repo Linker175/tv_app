@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.KeyEvent; 
 
 public class App extends JFrame {
 
@@ -57,11 +58,12 @@ public class App extends JFrame {
     }
 
     private void openLinkInBrowser(String url) {
-        String[] cmd;
-        cmd = new String[]{"C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe", "--new-window", "--start-fullscreen", url};
-        //cmd = new String[]{"firefox", url,  "--start-fullscreen"};
         try {
-            Process process = new ProcessBuilder(cmd).start();
+            Process process = new ProcessBuilder("C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe", url).start();
+            Thread.sleep(300);
+            Robot robot = new Robot();
+            robot.keyPress(KeyEvent.VK_F11);
+            robot.keyRelease(KeyEvent.VK_F11);
         } catch (Exception e) {
             e.printStackTrace();
         }
